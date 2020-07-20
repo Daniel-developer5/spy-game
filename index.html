@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="build/css/style.css"/>
+    <title>Spy Game!</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="start-btn shadow">новая игра</div>
+        <ul class="card-list"></ul>
+    </div>
+    <div class="game-set-box">
+        <header>
+            <i class="fas fa-cogs"></i>
+            <span>настройка игры</span>
+        </header>
+        <ul>
+            <li>
+                <div>
+                    <i class="fas fa-user-alt"></i>
+                    <div>
+                        <p>Количество игроков</p>
+                        <div>
+                            <button class="shadow">-1</button>
+                            <button class="shadow">+1</button>
+                        </div>
+                    </div>
+                    <input type="text" value="10" readonly/>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <i class="fas fa-user-secret"></i>
+                    <div>
+                        <p>Количество шпионов</p>
+                        <div>
+                            <button class="shadow">-1</button>
+                            <button class="shadow">+1</button>
+                        </div>
+                    </div>
+                    <input type="text" value="2" readonly/>
+                </div>
+            </li>
+        </ul>
+        <p class="shadow">начать</p>
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

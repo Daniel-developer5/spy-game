@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import 'reset';
+
+$main-tr: ease .5s;
+$main-white: #fafafa;
+$src: 'https://community-assets.home-assistant.io/original/3X/d/e/dea8c60d19e758c8744437e7b91b73c10ad0e030.jpeg';
+
+@mixin btn-modal-temp($bg) {
+    background-color: $bg;
+    border-radius: 5px;
+}
+
+@mixin blue-section($dir) {
+    padding: 10px;
+    background: linear-gradient(to $dir, #2e7be0, #1562c7, #0857bd);
+    text-transform: capitalize;
+    color: $main-white;
+}
+
+%shadow {
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+
+    span {
+        position: absolute;
+        top: 0;
+        width: 50px;
+        height: 100%;
+        background-color: rgba(170, 169, 169, .5);
+        border-radius: 30%;
+        transition: ease .3s;
+    }
+}
+
+%absolute-center {
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background: url($src) no-repeat;
+}
+
+.start-btn {
+    text-transform: capitalize;
+    text-align: center;
+    line-height: 60px;
+    width: 300px;
+    font-size: 20px;
+    align-self: center;
+    transition: $main-tr;
+    @include btn-modal-temp($main-white);
+    @extend %shadow;
+
+    &:hover {
+        color: #164bad;
+    }
+
+    &.close {
+        display: none;
+    }
+}
+
+.card-list {
+    display: none;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    @extend %absolute-center;
+
+    &.open {
+        display: flex;
+    }
+
+    li {
+        display: flex;
+        margin: 5px;
+        width: 300px;
+        height: 70%;
+        background-color: #006675;
+        position: absolute;
+        border-radius: 20px;
+        transition: $main-tr;
+        border: 5px solid #044752;
+        padding: 20px;
+        user-select: none;
+
+        &.hide {
+            transform: scale(0);
+        }
+
+        &.grd-bg {
+            background: linear-gradient(to bottom, #1d96cf, #1178a8, #085980);
+        }
+
+        &.spy {
+            background-color: #090970;
+        }
+
+        div {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            color: $main-white;
+            @extend %absolute-center;
+
+            p {
+                transform: scale(-1, 1);
+                font-family: 'Indie Flower', cursive;
+            }
+
+            p:first-child {
+                font-size: 30px;
+                margin-bottom: 40px;
+            }
+
+            p:last-child {
+                width: 100%;
+                font-size: 40px;
+                line-height: 40px;
+                text-align: center;
+            }
+
+            img {
+                width: 100%;
+            }
+
+            span {
+                position: absolute;
+                font-size: 25px;
+            }
+        }
+    }
+}
+
+.game-set-box {
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+    right: 0; 
+    margin: 0 auto;
+    width: 320px;
+    height: 0;
+    overflow: hidden;
+    border-radius: 5px 5px 0 0;
+    background: linear-gradient(to bottom, #353434, #222121, #111010);
+    transition: $main-tr;
+
+    &.open {
+        height: 60%;
+    }
+
+    header {
+        @include blue-section(bottom);
+
+        span {
+            margin-left: 5px;
+        }
+    }
+
+    li {
+        padding: 20px;
+        line-height: 20px;
+        color: $main-white;
+
+        &:last-child { padding-top: 0; }
+
+        > div {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 500;
+
+            > div {
+                padding-bottom: 10px;
+                border-bottom: 2px solid $main-white;
+
+                div {
+                    display: flex;
+                    justify-content: space-between;
+                    margin: 10px 0;
+
+                    button {
+                        width: 48%;
+                        border: 2px solid $main-white;
+                        color: $main-white;
+                        font-size: 15px;
+                        font-weight: 700;
+                        padding: 10px 0;
+                        transition: $main-tr;
+                        @include btn-modal-temp(transparent);
+                        @extend %shadow;
+
+                        &:hover {
+                            background-color: $main-white;
+                            color: #333;
+                        }
+                    }
+                }
+            }
+
+            input {
+                border: none;
+                color: $main-white;
+                font-size: 30px;
+                width: 15%;
+            }
+        }
+    }
+
+    > p {
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+        transition: $main-tr;
+        @include blue-section(top);
+        @extend %shadow;
+        position: absolute;
+
+        &:hover {
+            color: #000;
+        }
+    }
+}
