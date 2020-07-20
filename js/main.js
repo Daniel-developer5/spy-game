@@ -146,7 +146,7 @@ function fillRotateCard(elem, className, text) {
 let isMouseDown = false
 
 document.addEventListener('mouseup', makeDownFalse)
-document.addEventListener('touchend', makeDownFalse)
+document.addEventListener('touchend', makeDownTrue)
 
 function makeDownTrue() {
     isMouseDown = true
