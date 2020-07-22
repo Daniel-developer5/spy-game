@@ -108,6 +108,14 @@ $src: 'https://community-assets.home-assistant.io/original/3X/d/e/dea8c60d19e758
             background-color: #090970;
         }
 
+        &.no-transition {
+            transition: none;
+        }
+
+        &.grab {
+            cursor: grabbing;
+        }
+
         div {
             width: 100%;
             display: flex;
@@ -128,7 +136,7 @@ $src: 'https://community-assets.home-assistant.io/original/3X/d/e/dea8c60d19e758
 
             p:last-child {
                 width: 100%;
-                font-size: 40px;
+                font-size: 200%;
                 line-height: 40px;
                 text-align: center;
             }

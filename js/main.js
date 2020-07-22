@@ -69,6 +69,10 @@ function changeValue(i, btnI) {
     if (+playerCounters[i].value === shadowBtns[btnI].moreData.min - 1) {
         playerCounters[i].value = +playerCounters[i].value + 1
     } 
+    
+    if (+playerCounters[1].value === +playerCounters[0].value) {
+        playerCounters[1].value = +playerCounters[0].value - 1
+    }
 }
 
 const 
@@ -130,8 +134,6 @@ function showCard() {
         fillRotateCard(this, 'grd-bg', randomLocation(locations))
     }
 
-    this.addEventListener('mousedown', makeDownTrue)
-    this.addEventListener('touchstart', makeDownTrue)
     dragCard(this)
 }
 
@@ -143,59 +145,46 @@ function fillRotateCard(elem, className, text) {
     `
 }
 
-let isMouseDown = false
-
-document.addEventListener('mouseup', makeDownFalse)
-document.addEventListener('touchend', makeDownTrue)
-
-function makeDownTrue() {
-    isMouseDown = true
-}
-function makeDownFalse() {
-    isMouseDown = false
-}
-
-function dragCardProcess(e) {
-    elem.style.left = `${e.clientX - elem.offsetWidth / 2}px`
-    elem.style.top = `${e.clientY - elem.offsetHeight / 2}px`
-}
-
-let position
-
 function dragCard(elem) {
-    document.addEventListener('mousemove', dragCardProcess)
-    document.addEventListener('touchmove', dragCardProcess)
+    let hammer = new Hammer(elem)
+    let position = []
 
-    function dragCardProcess(e) {
-        if (isMouseDown) {
-            position = []
+    hammer.on('pan', e => {
+        position = []
 
-            elem.style.cursor = 'grabbing'
-            elem.style.left = `${e.clientX - elem.offsetWidth / 2}px`
-            elem.style.top = `${e.clientY - elem.offsetHeight / 2}px`
-            
-            position.push(
-                elem.getBoundingClientRect().x,
-                elem.getBoundingClientRect().y 
-            )
+        elem.classList.add('no-transition')
+        elem.classList.add('grab')
+        elem.style.left = `${e.deltaX + elem.offsetWidth / 2}px`
+        elem.style.top = `${e.deltaY + elem.offsetHeight / 3}px`
 
-            if (position[0] <= 0 ) { 
-                removeCard(elem, -elem.offsetWidth, 'X')
-            } else if (position[0] >= window.innerWidth / 2) {
-                removeCard(elem, elem.offsetWidth, 'X')
-            } else if (position[1] <= 0) {
-                removeCard(elem, -elem.offsetHeight, 'Y')
-            } else if (position[1] >= window.innerHeight / 3) {
-                removeCard(elem, elem.offsetHeight, 'Y')
-            }
+        position.push(
+            elem.getBoundingClientRect().x,
+            elem.getBoundingClientRect().y 
+        )
+    })
+
+    hammer.on('panend', () => {
+        elem.classList.remove('grab')
+        elem.classList.remove('no-transition')
+
+        if (position[0] <= 0 ) { 
+            removeCard(elem, -elem.offsetWidth, 'X')
+        } else if (position[0] >= window.innerWidth / 2) {
+            removeCard(elem, elem.offsetWidth, 'X')
+        } else if (position[1] <= 0) {
+            removeCard(elem, -elem.offsetHeight, 'Y')
+        } else if (position[1] >= window.innerHeight / 3) {
+            removeCard(elem, elem.offsetHeight, 'Y')
         } else {
-            elem.style.cursor = 'default'
-        } 
-    }
+            elem.style.removeProperty('top')
+            elem.style.removeProperty('left')
+        }
+    })
 }
 
 function removeCard(card, value, axis) {
     card.style.transform = `translate${axis}(${value}px)`
+
     setTimeout(() => {
         card.remove()
 
@@ -203,11 +192,12 @@ function removeCard(card, value, axis) {
             shadowBtns[0].classList.remove('close')
             cardList.classList.remove('open')
             shadowBtns[0].textContent = 'завершить игру'
-            shadowBtns[0].addEventListener('click', gameEnd, { once: true })
+            shadowBtns[0].addEventListener('click', gameEnd)
         }
     }, 500)
 }
 
 function gameEnd() {
+    shadowBtns[0].removeEventListener('click', gameEnd)
     shadowBtns[0].textContent = 'новая игра'
 }
