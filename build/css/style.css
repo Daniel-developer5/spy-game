@@ -17,7 +17,8 @@ a {
 button, input, textarea {
   outline: none;
   border-style: solid;
-  background-color: transparent; }
+  background-color: transparent;
+  color: inherit; }
 
 .start-btn, .game-set-box li > div > div div button, .game-set-box > p {
   cursor: pointer;
@@ -87,6 +88,10 @@ button, input, textarea {
       background: linear-gradient(to bottom, #1d96cf, #1178a8, #085980); }
     .card-list li.spy {
       background-color: #090970; }
+    .card-list li.no-transition {
+      transition: none; }
+    .card-list li.grab {
+      cursor: grabbing; }
     .card-list li div {
       width: 100%;
       display: flex;
@@ -101,7 +106,7 @@ button, input, textarea {
         margin-bottom: 40px; }
       .card-list li div p:last-child {
         width: 100%;
-        font-size: 40px;
+        font-size: 200%;
         line-height: 40px;
         text-align: center; }
       .card-list li div img {
