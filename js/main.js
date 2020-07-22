@@ -154,8 +154,8 @@ function dragCard(elem) {
 
         elem.classList.add('no-transition')
         elem.classList.add('grab')
-        elem.style.left = `${e.deltaX + elem.offsetWidth / 2}px`
-        elem.style.top = `${e.deltaY + elem.offsetHeight / 3}px`
+        elem.style.left = `${e.deltaX + elem.offsetWidth / 1.2}px`
+        elem.style.top = `${e.deltaY + elem.offsetHeight / 4}px`
 
         position.push(
             elem.getBoundingClientRect().x,
